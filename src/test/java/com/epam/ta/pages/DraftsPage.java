@@ -3,22 +3,18 @@ package com.epam.ta.pages;
 import org.openqa.selenium.*;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
-import org.openqa.selenium.support.ui.ExpectedCondition;
 import org.openqa.selenium.support.ui.ExpectedConditions;
-import org.testng.Assert;
-
 import java.util.List;
 
 public class DraftsPage extends AbstractPage {
-    private String BASEURL = "https://e.mail.ru/messages/drafts/";
 
-
-    @FindBy(xpath = "//*[@id=\"b-letters\"]/div[1]/div[5]/div/div[2]/div")
+    @FindBy(xpath = "//div[@class=\"b-datalist b-datalist_letters b-datalist_letters_to\"]//div[@data-bem =\"b-datalist__item\"]")
     private List<WebElement> listOfDrafts;
 
     @FindBy(xpath = "//a[@data-shortcut=\"g,s\"]")
     private WebElement sentsFolder;
 
+    private String BASEURL = "https://e.mail.ru/messages/drafts/";
     private int index;
 
     public void openPage() {
@@ -29,8 +25,6 @@ public class DraftsPage extends AbstractPage {
         super(driver);
         PageFactory.initElements(this.driver, this);
     }
-
-
 
     public boolean isMessageInDrafts(String subject, String target, String message){
         int i = 0;
@@ -58,7 +52,6 @@ public class DraftsPage extends AbstractPage {
         }
         return true;
     }
-
 
     public void clickOnDraft(){
         click(listOfDrafts.get(index));

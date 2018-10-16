@@ -8,6 +8,7 @@ import org.apache.logging.log4j.Logger;
 import org.openqa.selenium.WebDriver;
 
 public class Steps {
+
     private WebDriver driver;
 
     private final Logger logger = LogManager.getRootLogger();
@@ -38,26 +39,25 @@ public class Steps {
         writeMessagePage.writeMessage(subject, target, message);
     }
 
-    public boolean isDraftSaved(){
+    public void saveMessageAsDrafts(){
         WriteMessagePage writeMessagePage = new WriteMessagePage(driver);
-        if (writeMessagePage.saveDraft().contains("Сохранено в")){
-            return true;
-        }
-        return false;
+        writeMessagePage.saveMessageAsDraft();
     }
-    public void openDrafts(){
-        WriteMessagePage writeMessagePage = new WriteMessagePage(driver);
-        writeMessagePage.openDrafts();
+    public void openDraftsFolder(){
+        //WriteMessagePage writeMessagePage = new WriteMessagePage(driver);
+        //writeMessagePage.openDrafts();
+        DraftsPage draftsPage = new DraftsPage(driver);
+        draftsPage.openPage();
     }
     public boolean isMessageInDraftFolder(String subject, String target, String message){
         DraftsPage draftsPage = new DraftsPage(driver);
         return draftsPage.isMessageInDrafts(subject, target, message);
     }
 
-
     public void openDraft(){
         DraftsPage draftsPage = new DraftsPage(driver);
         draftsPage.clickOnDraft();
+
     }
 
 
@@ -66,7 +66,7 @@ public class Steps {
         writeMessagePage.sendCurrent();
 
     }
-    public void openSentsFoldder(){
+    public void openSentsFolder(){
        SentPage sentPage = new SentPage(driver);
        sentPage.openPage();
     }

@@ -10,7 +10,7 @@ import java.util.List;
 public class SentPage extends AbstractPage {
     private String BASEURL = "https://e.mail.ru/messages/sent/";
 
-    @FindBy(xpath = "//div[@id=\"b-letters\"]/div/div[2]/div/div[2]")
+    @FindBy(xpath = "//div[@data-cache-key = \"500000_undefined_false\"]//div[@class=\"b-datalist b-datalist_letters b-datalist_letters_to\"]//div[@data-bem =\"b-datalist__item\"]")
     private List<WebElement> listOfSentMessages;
 
     public void openPage() {
