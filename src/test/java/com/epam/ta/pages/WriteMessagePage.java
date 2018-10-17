@@ -5,7 +5,7 @@ import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 
-public class WriteMessagePage extends AbstractPage {
+public class WriteMessagePage extends NavigationPage {
 
     private String BASEURL = "https://e.mail.ru/compose/";
 
@@ -27,14 +27,8 @@ public class WriteMessagePage extends AbstractPage {
     @FindBy(xpath = "//div[@data-mnemo=\"saveStatus\"]")
     private WebElement saveStatus;
 
-    @FindBy(xpath = "//a[@data-mnemo=\"drafts\"]")
-    private WebElement drafts;
-
     @FindBy(xpath = "//div[@data-name=\"send\"]")
     private WebElement sendButton;
-
-    @FindBy(css = "#compose_to")
-    private WebElement filledFieldTarget;
 
 
     public void openPage() {
@@ -61,13 +55,8 @@ public class WriteMessagePage extends AbstractPage {
         wait.until(ExpectedConditions.visibilityOf(saveStatus));
     }
 
-    public void openDrafts(){
-        click(drafts);
-    }
-
     public void sendCurrent(){
         wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//div[@data-name=\"send\"]")));
-        //wait.until(ExpectedConditions.elementToBeClickable(sendButton));
         click(sendButton);
     }
 

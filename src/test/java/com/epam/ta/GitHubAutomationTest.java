@@ -22,6 +22,7 @@ public class GitHubAutomationTest
 	{
 		steps = new Steps();
 		steps.initBrowser();
+		steps.initPages();
 	}
 
 	@Test(priority = 1)
@@ -38,7 +39,6 @@ public class GitHubAutomationTest
 		steps.saveMessageAsDrafts();
 		steps.openDraftsFolder();
 		verification.verifyTrue(steps.isMessageInDraftFolder(SUBJECT, TARGET, MESSAGE));
-		//Assert.assertTrue(steps.isMessageInDraftFolder("subject", "target@mail.com", "SomeText!!1"));
 	}
 
 	@Test(priority = 3)
@@ -48,7 +48,6 @@ public class GitHubAutomationTest
 		steps.sendDraft();
 		steps.openDraftsFolder();
 		verification.verifyTrue(steps.isMessageNotInDrafts(SUBJECT, TARGET, MESSAGE));
-		//Assert.assertTrue(steps.isMessageNotInDrafts("subject", "target@mail.com", "SomeText!!1"),"33333333");
 	}
 
 	@Test(priority = 4)
@@ -56,7 +55,6 @@ public class GitHubAutomationTest
 		Verification verification = new Verification();
 		steps.openSentsFolder();
 		verification.verifyTrue(steps.isMessageInSentFolder(SUBJECT, TARGET, MESSAGE));
-		//Assert.assertTrue(steps.isMessageInSentFolder(SUBJECT, TARGET, MESSAGE),"22222222");
 	}
 
 	@Test(priority = 5)

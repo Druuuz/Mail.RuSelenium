@@ -20,9 +20,6 @@ public class LoginPage extends AbstractPage {
     @FindBy(xpath = "//input[@class='o-control']")
     private WebElement loginButton;
 
-    @FindBy(id = "PH_user-email")
-    private WebElement authorizedUserName;
-
 
     private String BASE_URL = "https://mail.ru/";
     public void openPage() {
@@ -56,10 +53,6 @@ public class LoginPage extends AbstractPage {
     public void chooseDomain(String domain){
         Select domains = new Select(domainField);
         domains.selectByVisibleText(domain);
-    }
-
-    public String getUserName(){
-        return authorizedUserName.getText();
     }
 
 }

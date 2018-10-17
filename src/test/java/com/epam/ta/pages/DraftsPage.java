@@ -1,18 +1,22 @@
 package com.epam.ta.pages;
 
 import org.openqa.selenium.*;
+import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import java.util.List;
 
-public class DraftsPage extends AbstractPage {
+public class DraftsPage extends NavigationPage {
 
     @FindBy(xpath = "//div[@class=\"b-datalist b-datalist_letters b-datalist_letters_to\"]//div[@data-bem =\"b-datalist__item\"]")
     private List<WebElement> listOfDrafts;
 
-    @FindBy(xpath = "//a[@data-shortcut=\"g,s\"]")
-    private WebElement sentsFolder;
+    @FindBy(xpath = "//div[@class=\"b-datalist b-datalist_letters b-datalist_letters_to\"]//div[@data-bem =\"b-datalist__item\"][1]")
+    private WebElement aa;
+
+    @FindBy(xpath = "//div[@class=\"b-sticky\"]//div[@data-cache-key=\"500001_undefined_false\"]//div[@data-shortcut-title=\"J\"]")
+    private WebElement spamButton;
 
     private String BASEURL = "https://e.mail.ru/messages/drafts/";
     private int index;
@@ -24,6 +28,13 @@ public class DraftsPage extends AbstractPage {
     public DraftsPage(WebDriver driver){
         super(driver);
         PageFactory.initElements(this.driver, this);
+    }
+
+    public void markDraftAsSpam(){
+        listOfDrafts.get(index).findElement(By.xpath("//div[@class=\"js-item-checkbox b-datalist__item__cbx\"]")).click();
+        Actions action = new Actions(driver);
+        action.sendKeys("j").build().perform();
+        //click(spamButton);
     }
 
     public boolean isMessageInDrafts(String subject, String target, String message){
@@ -57,7 +68,8 @@ public class DraftsPage extends AbstractPage {
         click(listOfDrafts.get(index));
     }
 
-    public void openSentsFolder(){
-        click(sentsFolder);
+    public void moveMessageIntoBasket(){
+        Actions action = new Actions(driver);
+        action.dragAndDrop(listOfDrafts.get(index),basketFolder).build().perform();
     }
 }

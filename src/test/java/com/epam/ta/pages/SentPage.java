@@ -7,7 +7,7 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 
 import java.util.List;
 
-public class SentPage extends AbstractPage {
+public class SentPage extends NavigationPage {
     private String BASEURL = "https://e.mail.ru/messages/sent/";
 
     @FindBy(xpath = "//div[@data-cache-key = \"500000_undefined_false\"]//div[@class=\"b-datalist b-datalist_letters b-datalist_letters_to\"]//div[@data-bem =\"b-datalist__item\"]")
@@ -16,12 +16,15 @@ public class SentPage extends AbstractPage {
     public void openPage() {
         driver.navigate().to(BASEURL);
     }
+
     public SentPage(WebDriver driver){
         super(driver);
         PageFactory.initElements(this.driver, this);
     }
 
         public boolean isMessageInSents(String subject, String target, String message){
+
+        WebElement wb = driver.findElement(By.xpath("//div[@data-cache-key = \"500000_undefined_false\"]//div[@class=\"b-datalist b-datalist_letters b-datalist_letters_to\"]//div[@data-bem =\"b-datalist__item\"][1]"));
             for (WebElement draft: listOfSentMessages) {
                 if (draft.getText().contains(subject+message+"\n"+target)){
                     return true;
