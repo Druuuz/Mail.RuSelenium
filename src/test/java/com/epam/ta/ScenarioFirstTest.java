@@ -6,7 +6,7 @@ import org.testng.annotations.*;
 
 import com.epam.ta.steps.Steps;
 
-public class GitHubAutomationTest
+public class ScenarioFirstTest
 {
 	private Steps steps;
 	private final String USERNAME = "test.poc";
@@ -15,6 +15,7 @@ public class GitHubAutomationTest
 	private final String SUBJECT = "Theme";
 	private final String MESSAGE = "Some text in message";
 	private final String TARGET = "target@tartar.com";
+	private Verification verification = new Verification();
 
 
 	@BeforeClass(description = "Init browser")
@@ -33,17 +34,15 @@ public class GitHubAutomationTest
 	}
 
 	@Test(priority = 2)
-	public void creatingMessageAndSaveDrafts(){
-		Verification verification = new Verification();
+	public void createDraft(){
 		steps.writeMessage(SUBJECT, TARGET, MESSAGE);
-		steps.saveMessageAsDrafts();
+		steps.saveMessageAsDraft();
 		steps.openDraftsFolder();
 		verification.verifyTrue(steps.isMessageInDraftFolder(SUBJECT, TARGET, MESSAGE));
 	}
 
 	@Test(priority = 3)
-	public void sendingMessageAndMessageNotInDrafts(){
-		Verification verification = new Verification();
+	public void sendDraft(){
 		steps.openDraft();
 		steps.sendDraft();
 		steps.openDraftsFolder();
@@ -51,8 +50,7 @@ public class GitHubAutomationTest
 	}
 
 	@Test(priority = 4)
-	public void messageAppearInSents(){
-		Verification verification = new Verification();
+	public void checkSendedFolder(){
 		steps.openSentsFolder();
 		verification.verifyTrue(steps.isMessageInSentFolder(SUBJECT, TARGET, MESSAGE));
 	}

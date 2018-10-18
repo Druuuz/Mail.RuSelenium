@@ -23,8 +23,6 @@ public class SentPage extends NavigationPage {
     }
 
         public boolean isMessageInSents(String subject, String target, String message){
-
-        WebElement wb = driver.findElement(By.xpath("//div[@data-cache-key = \"500000_undefined_false\"]//div[@class=\"b-datalist b-datalist_letters b-datalist_letters_to\"]//div[@data-bem =\"b-datalist__item\"][1]"));
             for (WebElement draft: listOfSentMessages) {
                 if (draft.getText().contains(subject+message+"\n"+target)){
                     return true;

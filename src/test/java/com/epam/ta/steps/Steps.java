@@ -50,7 +50,7 @@ public class Steps {
         writeMessagePage.writeMessage(subject, target, message);
     }
 
-    public void saveMessageAsDrafts(){
+    public void saveMessageAsDraft(){
         writeMessagePage.saveMessageAsDraft();
     }
     public void openDraftsFolder(){

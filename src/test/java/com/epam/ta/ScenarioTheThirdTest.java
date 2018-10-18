@@ -7,7 +7,7 @@ import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 
-public class Test3 {
+public class ScenarioTheThirdTest {
     private Steps steps;
     private final String USERNAME = "test.poc";
     private final String PASSWORD = "pass666";
@@ -15,6 +15,7 @@ public class Test3 {
     private final String SUBJECT = "Theme";
     private final String MESSAGE = "Some text in message";
     private final String TARGET = "target@tartar.com";
+    private Verification verification = new Verification();
 
 
     @BeforeClass(description = "Init browser")
@@ -33,22 +34,21 @@ public class Test3 {
     }
 
     @Test(priority = 2)
-    public void creatingMessageAndSaveDrafts(){
-        Verification verification = new Verification();
+    public void createDraft(){
         steps.writeMessage(SUBJECT, TARGET, MESSAGE);
-        steps.saveMessageAsDrafts();
+        steps.saveMessageAsDraft();
         steps.openDraftsFolder();
         verification.verifyTrue(steps.isMessageInDraftFolder(SUBJECT, TARGET, MESSAGE));
     }
 
     @Test(priority = 3)
-    public void MessageNotInDrafts(){
+    public void addDraftToBasket(){
         steps.moveMessageIntoBasket();
         Assert.assertTrue(steps.isMessageNotInDrafts(SUBJECT, TARGET, MESSAGE));
     }
 
     @Test(priority = 4)
-    public void MessageInSpam(){
+    public void checkBasket(){
         steps.openBasket();
         Assert.assertTrue(steps.isMessageInBasket(SUBJECT, TARGET, MESSAGE));
     }
