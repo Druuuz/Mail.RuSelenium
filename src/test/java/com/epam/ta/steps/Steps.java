@@ -27,7 +27,7 @@ public class Steps {
         DriverSingleton.closeDriver();
     }
 
-    public void initPages(){
+    public void initPages() {
         basketPage = new BasketPage(driver);
         spamsPage = new SpamsPage(driver);
         loginPage = new LoginPage(driver);
@@ -36,75 +36,79 @@ public class Steps {
         draftsPage = new DraftsPage(driver);
         sentPage = new SentPage(driver);
     }
+
     public void login(String username, String password, String domain) {
         loginPage.openPage();
         loginPage.login(username, password, domain);
     }
 
-    public String getUserName(){
+    public String getUserName() {
         return inboxPage.getUserName();
     }
 
-    public void writeMessage(String subject, String target, String message){
+    public void writeMessage(String subject, String target, String message) {
         inboxPage.clickCreateMessage();
         writeMessagePage.writeMessage(subject, target, message);
     }
 
-    public void saveMessageAsDraft(){
+    public void saveMessageAsDraft() {
         writeMessagePage.saveMessageAsDraft();
     }
-    public void openDraftsFolder(){
+
+    public void openDraftsFolder() {
         draftsPage.openPage();
     }
-    public boolean isMessageInDraftFolder(String subject, String target, String message){
+
+    public boolean isMessageInDraftFolder(String subject, String target, String message) {
         return draftsPage.isMessageInDrafts(subject, target, message);
     }
 
-    public void openDraft(){
+    public void openDraft() {
         draftsPage.clickOnDraft();
     }
 
-    public void sendDraft(){
+    public void sendDraft() {
         writeMessagePage.sendCurrent();
     }
-    public void openSentsFolder(){
-       sentPage.openPage();
+
+    public void openSentsFolder() {
+        sentPage.openPage();
     }
 
-    public boolean isMessageInSentFolder(String subject, String target, String message){
+    public boolean isMessageInSentFolder(String subject, String target, String message) {
         return sentPage.isMessageInSents(subject, target, message);
     }
 
-    public void logOut(){
+    public void logOut() {
         inboxPage.logOut();
     }
 
-    public boolean isMessageNotInDrafts(String subject, String target, String message){
+    public boolean isMessageNotInDrafts(String subject, String target, String message) {
         return draftsPage.isMessageNotInDrafts(subject, target, message);
     }
 
-    public void setDraftAsSpam(){
+    public void setDraftAsSpam() {
         draftsPage.markDraftAsSpam();
     }
 
-    public void openSpamFolder(){
+    public void openSpamFolder() {
         spamsPage.openPage();
     }
 
-    public boolean isMessageInSpam(String subject, String target, String message){
+    public boolean isMessageInSpam(String subject, String target, String message) {
         return spamsPage.isMessageInSpam(subject, target, message);
     }
 
-    public void moveMessageIntoBasket(){
+    public void moveMessageIntoBasket() {
         draftsPage.moveMessageIntoBasket();
     }
 
-    public void openBasket(){
+    public void openBasket() {
         basketPage.openPage();
     }
 
-    public boolean isMessageInBasket(String subject, String target, String message){
-       return basketPage.isMessageInBasket(subject, target, message);
+    public boolean isMessageInBasket(String subject, String target, String message) {
+        return basketPage.isMessageInBasket(subject, target, message);
     }
 
 

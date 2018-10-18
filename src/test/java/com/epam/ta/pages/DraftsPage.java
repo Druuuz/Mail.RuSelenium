@@ -5,6 +5,7 @@ import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.ExpectedConditions;
+
 import java.util.List;
 
 public class DraftsPage extends NavigationPage {
@@ -25,22 +26,21 @@ public class DraftsPage extends NavigationPage {
         driver.navigate().to(BASEURL);
     }
 
-    public DraftsPage(WebDriver driver){
+    public DraftsPage(WebDriver driver) {
         super(driver);
         PageFactory.initElements(this.driver, this);
     }
 
-    public void markDraftAsSpam(){
+    public void markDraftAsSpam() {
         listOfDrafts.get(index).findElement(By.xpath("//div[@class=\"js-item-checkbox b-datalist__item__cbx\"]")).click();
         Actions action = new Actions(driver);
         action.sendKeys("j").build().perform();
-        //click(spamButton);
     }
 
-    public boolean isMessageInDrafts(String subject, String target, String message){
+    public boolean isMessageInDrafts(String subject, String target, String message) {
         int i = 0;
-        for (WebElement draft: listOfDrafts) {
-            if (draft.getText().contains(subject+message+"\n"+target)){
+        for (WebElement draft : listOfDrafts) {
+            if (draft.getText().contains(subject + message + "\n" + target)) {
                 index = i;
                 return true;
             }
@@ -49,13 +49,12 @@ public class DraftsPage extends NavigationPage {
         return false;
     }
 
-    public boolean isMessageNotInDrafts(String subject, String target, String message){
-        for (WebElement draft: listOfDrafts) {
-            if (draft.getText().contains(subject+message+"\n"+target)){
-                try{
+    public boolean isMessageNotInDrafts(String subject, String target, String message) {
+        for (WebElement draft : listOfDrafts) {
+            if (draft.getText().contains(subject + message + "\n" + target)) {
+                try {
                     wait.until(ExpectedConditions.invisibilityOf(draft));
-                }
-                catch (Exception e){
+                } catch (Exception e) {
                     return false;
                 }
                 return true;
@@ -64,12 +63,12 @@ public class DraftsPage extends NavigationPage {
         return true;
     }
 
-    public void clickOnDraft(){
+    public void clickOnDraft() {
         click(listOfDrafts.get(index));
     }
 
-    public void moveMessageIntoBasket(){
+    public void moveMessageIntoBasket() {
         Actions action = new Actions(driver);
-        action.dragAndDrop(listOfDrafts.get(index),basketFolder).build().perform();
+        action.dragAndDrop(listOfDrafts.get(index), basketFolder).build().perform();
     }
 }

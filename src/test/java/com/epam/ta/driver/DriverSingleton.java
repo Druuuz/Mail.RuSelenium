@@ -3,27 +3,37 @@ package com.epam.ta.driver;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
+import org.openqa.selenium.remote.DesiredCapabilities;
+import org.openqa.selenium.remote.RemoteWebDriver;
 
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.util.concurrent.TimeUnit;
 
 public class DriverSingleton {
 
     private static WebDriver driver;
     private static final Logger logger = LogManager.getRootLogger();
-    private static final String WEBDRIVER_CHROMEDRIVER = "webdriver.gecko.driver";
+    private static final String WEBDRIVER_CHROMEDRIVER = "webdriver.chrome.driver";
     private static final String CHROMEDRIVER_CHROMEDRIVER_EXE_PATH = ".\\geckodriver\\chromedriver.exe";
 
-    private DriverSingleton(){
+    private DriverSingleton() {
         driver.manage().timeouts().pageLoadTimeout(30, TimeUnit.SECONDS);
         driver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
-    };
+    }
 
+    public static WebDriver getDriver() {
+        if (null == driver) {
+            //System.setProperty(WEBDRIVER_CHROMEDRIVER, CHROMEDRIVER_CHROMEDRIVER_EXE_PATH);
+            //driver = new ChromeDriver();
+            try {
+                driver = new RemoteWebDriver(new URL("http://127.0.0.1:4444/wd/hub"), DesiredCapabilities.chrome());
+            } catch (MalformedURLException e) {
+                e.printStackTrace();
+            }
 
-    public static WebDriver getDriver(){
-        if (null == driver){
-            System.setProperty(WEBDRIVER_CHROMEDRIVER, CHROMEDRIVER_CHROMEDRIVER_EXE_PATH);
-            driver = new FirefoxDriver();
             driver.manage().timeouts().pageLoadTimeout(30, TimeUnit.SECONDS);
             driver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
             driver.manage().window().maximize();
@@ -33,7 +43,7 @@ public class DriverSingleton {
         return driver;
     }
 
-    public static void closeDriver(){
+    public static void closeDriver() {
         driver.quit();
         driver = null;
     }

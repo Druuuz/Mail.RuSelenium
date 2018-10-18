@@ -19,22 +19,20 @@ public class ScenarioTheThirdTest {
 
 
     @BeforeClass(description = "Init browser")
-    public void setUp()
-    {
+    public void setUp() {
         steps = new Steps();
         steps.initBrowser();
         steps.initPages();
     }
 
     @Test(priority = 1)
-    public void CanLogin()
-    {
+    public void CanLogin() {
         steps.login(USERNAME, PASSWORD, DOMAIN);
         Assert.assertEquals(steps.getUserName(), USERNAME + DOMAIN);
     }
 
     @Test(priority = 2)
-    public void createDraft(){
+    public void createDraft() {
         steps.writeMessage(SUBJECT, TARGET, MESSAGE);
         steps.saveMessageAsDraft();
         steps.openDraftsFolder();
@@ -42,25 +40,24 @@ public class ScenarioTheThirdTest {
     }
 
     @Test(priority = 3)
-    public void addDraftToBasket(){
+    public void addDraftToBasket() {
         steps.moveMessageIntoBasket();
         Assert.assertTrue(steps.isMessageNotInDrafts(SUBJECT, TARGET, MESSAGE));
     }
 
     @Test(priority = 4)
-    public void checkBasket(){
+    public void checkBasket() {
         steps.openBasket();
         Assert.assertTrue(steps.isMessageInBasket(SUBJECT, TARGET, MESSAGE));
     }
 
     @Test(priority = 5)
-    public void canLogOf(){
+    public void canLogOf() {
         steps.logOut();
     }
 
     @AfterClass(description = "Stop Browser")
-    public void stopBrowser()
-    {
+    public void stopBrowser() {
         steps.closeDriver();
     }
 }

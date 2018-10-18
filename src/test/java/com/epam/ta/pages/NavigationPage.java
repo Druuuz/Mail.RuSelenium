@@ -12,7 +12,7 @@ public abstract class NavigationPage extends AbstractPage {
     public void openPage() {
     }
 
-    public NavigationPage(WebDriver driver){
+    public NavigationPage(WebDriver driver) {
         super(driver);
         PageFactory.initElements(this.driver, this);
     }
@@ -36,24 +36,24 @@ public abstract class NavigationPage extends AbstractPage {
     protected WebElement basketFolder;
 
 
-    public void clickCreateMessage(){
+    public void clickCreateMessage() {
         createMessageButton.click();
     }
 
-    public String getUserName(){
+    public String getUserName() {
         wait.until(ExpectedConditions.visibilityOf(userName));
         return userName.getText();
     }
 
-    public void logOut(){
+    public void logOut() {
         click(logOutButton);
     }
 
-    public void openDrafts(){
+    public void openDrafts() {
         click(drafts);
     }
 
-    public void openSents(){
+    public void openSents() {
         click(sentsFolder);
     }
 

@@ -22,35 +22,36 @@ public class LoginPage extends AbstractPage {
 
 
     private String BASE_URL = "https://mail.ru/";
+
     public void openPage() {
         driver.navigate().to(BASE_URL);
     }
 
-    public LoginPage(WebDriver driver){
+    public LoginPage(WebDriver driver) {
         super(driver);
         PageFactory.initElements(this.driver, this);
     }
 
-    private void setLogin(String login){
+    private void setLogin(String login) {
         loginField.sendKeys(login);
     }
 
-    private void setPass(String pass){
+    private void setPass(String pass) {
         passField.sendKeys(pass);
     }
 
-    private void submitLogin(){
+    private void submitLogin() {
         click(loginButton);
     }
 
-    public void login(String login, String pass, String domain){
+    public void login(String login, String pass, String domain) {
         setLogin(login);
         setPass(pass);
         chooseDomain(domain);
         submitLogin();
     }
 
-    public void chooseDomain(String domain){
+    public void chooseDomain(String domain) {
         Select domains = new Select(domainField);
         domains.selectByVisibleText(domain);
     }

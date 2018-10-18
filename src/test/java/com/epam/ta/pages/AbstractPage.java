@@ -3,6 +3,7 @@ package com.epam.ta.pages;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.WebDriverWait;
+
 import java.util.List;
 
 public abstract class AbstractPage {
@@ -17,7 +18,7 @@ public abstract class AbstractPage {
         this.wait = new WebDriverWait(driver, 10);
     }
 
-    protected void click (WebElement element){
+    protected void click(WebElement element) {
         element.click();
     }
 

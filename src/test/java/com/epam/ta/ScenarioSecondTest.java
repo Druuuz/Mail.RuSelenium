@@ -19,22 +19,20 @@ public class ScenarioSecondTest {
 
 
     @BeforeClass(description = "Init browser")
-    public void setUp()
-    {
+    public void setUp() {
         steps = new Steps();
         steps.initBrowser();
         steps.initPages();
     }
 
     @Test(priority = 1)
-    public void CanLogin()
-    {
+    public void CanLogin() {
         steps.login(USERNAME, PASSWORD, DOMAIN);
         Assert.assertEquals(steps.getUserName(), USERNAME + DOMAIN);
     }
 
     @Test(priority = 2)
-    public void createDraft(){
+    public void createDraft() {
         steps.writeMessage(SUBJECT, TARGET, MESSAGE);
         steps.saveMessageAsDraft();
         steps.openDraftsFolder();
@@ -42,25 +40,24 @@ public class ScenarioSecondTest {
     }
 
     @Test(priority = 3)
-    public void markDraftAsSpam(){
+    public void markDraftAsSpam() {
         steps.setDraftAsSpam();
         Assert.assertTrue(steps.isMessageNotInDrafts(SUBJECT, TARGET, MESSAGE));
     }
 
     @Test(priority = 4)
-    public void checkSpamFolder(){
+    public void checkSpamFolder() {
         steps.openSpamFolder();
         Assert.assertTrue(steps.isMessageInSpam(SUBJECT, TARGET, MESSAGE));
     }
 
     @Test(priority = 5)
-    public void canLogOf(){
+    public void canLogOf() {
         steps.logOut();
     }
 
     @AfterClass(description = "Stop Browser")
-    public void stopBrowser()
-    {
+    public void stopBrowser() {
         steps.closeDriver();
     }
 }

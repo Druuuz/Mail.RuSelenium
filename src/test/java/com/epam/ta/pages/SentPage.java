@@ -17,18 +17,18 @@ public class SentPage extends NavigationPage {
         driver.navigate().to(BASEURL);
     }
 
-    public SentPage(WebDriver driver){
+    public SentPage(WebDriver driver) {
         super(driver);
         PageFactory.initElements(this.driver, this);
     }
 
-        public boolean isMessageInSents(String subject, String target, String message){
-            for (WebElement draft: listOfSentMessages) {
-                if (draft.getText().contains(subject+message+"\n"+target)){
-                    return true;
-                }
+    public boolean isMessageInSents(String subject, String target, String message) {
+        for (WebElement draft : listOfSentMessages) {
+            if (draft.getText().contains(subject + message + "\n" + target)) {
+                return true;
             }
-            return false;
         }
+        return false;
+    }
 
 }

@@ -16,7 +16,7 @@ public class InboxPage extends NavigationPage {
         driver.navigate().to(BASE_URL);
     }
 
-    public InboxPage(WebDriver driver){
+    public InboxPage(WebDriver driver) {
         super(driver);
         PageFactory.initElements(this.driver, this);
     }

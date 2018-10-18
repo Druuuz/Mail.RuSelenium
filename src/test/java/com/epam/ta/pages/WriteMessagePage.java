@@ -34,28 +34,29 @@ public class WriteMessagePage extends NavigationPage {
     public void openPage() {
         driver.navigate().to(BASEURL);
     }
-    public WriteMessagePage(WebDriver driver){
+
+    public WriteMessagePage(WebDriver driver) {
         super(driver);
         PageFactory.initElements(this.driver, this);
     }
 
-    public void writeMessage(String subject, String target, String message){
+    public void writeMessage(String subject, String target, String message) {
         targetField.sendKeys(target);
         subjectField.sendKeys(subject);
         driver.switchTo().frame(0);
         JavascriptExecutor js = (JavascriptExecutor) driver;
-        js.executeScript("arguments[0].textContent= arguments[1];", messageField,message);
+        js.executeScript("arguments[0].textContent= arguments[1];", messageField, message);
         driver.switchTo().defaultContent();
     }
 
-    public void saveMessageAsDraft(){
+    public void saveMessageAsDraft() {
         click(saveDropDownList);
         wait.until(ExpectedConditions.visibilityOf(saveDraftButton));
         click(saveDraftButton);
         wait.until(ExpectedConditions.visibilityOf(saveStatus));
     }
 
-    public void sendCurrent(){
+    public void sendCurrent() {
         wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//div[@data-name=\"send\"]")));
         click(sendButton);
     }

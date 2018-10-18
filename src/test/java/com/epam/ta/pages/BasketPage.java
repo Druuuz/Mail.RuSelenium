@@ -18,15 +18,15 @@ public class BasketPage extends NavigationPage {
         driver.navigate().to(BASEURL);
     }
 
-    public BasketPage(WebDriver driver){
+    public BasketPage(WebDriver driver) {
         super(driver);
         PageFactory.initElements(this.driver, this);
     }
 
-    public boolean isMessageInBasket(String subject, String target, String message){
+    public boolean isMessageInBasket(String subject, String target, String message) {
 
-        for (WebElement trash: listOfTrash) {
-            if (trash.getText().contains(subject+message)){
+        for (WebElement trash : listOfTrash) {
+            if (trash.getText().contains(subject + message)) {
                 return true;
             }
         }
