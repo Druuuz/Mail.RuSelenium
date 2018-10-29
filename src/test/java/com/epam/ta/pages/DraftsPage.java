@@ -13,9 +13,6 @@ public class DraftsPage extends NavigationPage {
     @FindBy(xpath = "//div[@class=\"b-datalist b-datalist_letters b-datalist_letters_to\"]//div[@data-bem =\"b-datalist__item\"]")
     private List<WebElement> listOfDrafts;
 
-    @FindBy(xpath = "//div[@class=\"b-datalist b-datalist_letters b-datalist_letters_to\"]//div[@data-bem =\"b-datalist__item\"][1]")
-    private WebElement aa;
-
     @FindBy(xpath = "//div[@class=\"b-sticky\"]//div[@data-cache-key=\"500001_undefined_false\"]//div[@data-shortcut-title=\"J\"]")
     private WebElement spamButton;
 

@@ -26,14 +26,9 @@ public class DriverSingleton {
 
     public static WebDriver getDriver() {
         if (null == driver) {
-            //System.setProperty(WEBDRIVER_CHROMEDRIVER, CHROMEDRIVER_CHROMEDRIVER_EXE_PATH);
-            //driver = new ChromeDriver();
-            try {
-                driver = new RemoteWebDriver(new URL("http://127.0.0.1:4444/wd/hub"), DesiredCapabilities.chrome());
-            } catch (MalformedURLException e) {
-                e.printStackTrace();
-            }
 
+            WebDriverCreator creator = new ChromeDriverCreator();
+            driver = creator.createWebDriver();
             driver.manage().timeouts().pageLoadTimeout(30, TimeUnit.SECONDS);
             driver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
             driver.manage().window().maximize();

@@ -1,5 +1,7 @@
 package com.epam.ta.steps;
 
+import com.epam.ta.bo.Message;
+import com.epam.ta.bo.User;
 import com.epam.ta.driver.DriverSingleton;
 import com.epam.ta.pages.*;
 import org.apache.logging.log4j.LogManager;
@@ -37,18 +39,18 @@ public class Steps {
         sentPage = new SentPage(driver);
     }
 
-    public void login(String username, String password, String domain) {
+    public void login(User user) {
         loginPage.openPage();
-        loginPage.login(username, password, domain);
+        loginPage.login(user.getUsername(), user.getPassword(), user.getDomain());
     }
 
     public String getUserName() {
         return inboxPage.getUserName();
     }
 
-    public void writeMessage(String subject, String target, String message) {
+    public void writeMessage(Message message) {
         inboxPage.clickCreateMessage();
-        writeMessagePage.writeMessage(subject, target, message);
+        writeMessagePage.writeMessage(message.getSubject(), message.getTarget(), message.getBody());
     }
 
     public void saveMessageAsDraft() {
@@ -59,8 +61,8 @@ public class Steps {
         draftsPage.openPage();
     }
 
-    public boolean isMessageInDraftFolder(String subject, String target, String message) {
-        return draftsPage.isMessageInDrafts(subject, target, message);
+    public boolean isMessageInDraftFolder(Message message) {
+        return draftsPage.isMessageInDrafts(message.getSubject(), message.getTarget(), message.getBody());
     }
 
     public void openDraft() {
@@ -75,16 +77,16 @@ public class Steps {
         sentPage.openPage();
     }
 
-    public boolean isMessageInSentFolder(String subject, String target, String message) {
-        return sentPage.isMessageInSents(subject, target, message);
+    public boolean isMessageInSentFolder(Message message) {
+        return sentPage.isMessageInSents(message.getSubject(), message.getTarget(), message.getBody());
     }
 
     public void logOut() {
         inboxPage.logOut();
     }
 
-    public boolean isMessageNotInDrafts(String subject, String target, String message) {
-        return draftsPage.isMessageNotInDrafts(subject, target, message);
+    public boolean isMessageNotInDrafts(Message message) {
+        return draftsPage.isMessageNotInDrafts(message.getSubject(), message.getTarget(), message.getBody());
     }
 
     public void setDraftAsSpam() {
@@ -95,8 +97,8 @@ public class Steps {
         spamsPage.openPage();
     }
 
-    public boolean isMessageInSpam(String subject, String target, String message) {
-        return spamsPage.isMessageInSpam(subject, target, message);
+    public boolean isMessageInSpam(Message message) {
+        return spamsPage.isMessageInSpam(message.getSubject(), message.getTarget(), message.getBody());
     }
 
     public void moveMessageIntoBasket() {
@@ -107,8 +109,8 @@ public class Steps {
         basketPage.openPage();
     }
 
-    public boolean isMessageInBasket(String subject, String target, String message) {
-        return basketPage.isMessageInBasket(subject, target, message);
+    public boolean isMessageInBasket(Message message) {
+        return basketPage.isMessageInBasket(message.getSubject(), message.getTarget(), message.getBody());
     }
 
 

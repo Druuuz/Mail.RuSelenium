@@ -1,12 +1,15 @@
 package com.epam.ta;
 
 import com.epam.ta.AssertionExtension.Verification;
-import org.testng.Assert;
-import org.testng.annotations.*;
-
+import com.epam.ta.bo.Message;
+import com.epam.ta.bo.User;
 import com.epam.ta.steps.Steps;
+import org.testng.Assert;
+import org.testng.annotations.AfterClass;
+import org.testng.annotations.BeforeClass;
+import org.testng.annotations.Test;
 
-public class ScenarioFirstTest {
+public class BasketTest {
     private Steps steps;
     private final String USERNAME = "test.poc";
     private final String PASSWORD = "pass666";
@@ -16,6 +19,8 @@ public class ScenarioFirstTest {
     private final String TARGET = "target@tartar.com";
     private Verification verification = new Verification();
 
+    private User user = new User("test.poc", "pass666", "@bk.ru");
+    private Message message = new Message("target@tartar.com", "Theme", "Some text in message");
 
     @BeforeClass(description = "Init browser")
     public void setUp() {
@@ -26,30 +31,28 @@ public class ScenarioFirstTest {
 
     @Test(priority = 1)
     public void CanLogin() {
-        steps.login(USERNAME, PASSWORD, DOMAIN);
-        Assert.assertEquals(steps.getUserName(), USERNAME + DOMAIN);
+        steps.login(user);
+        Assert.assertEquals(steps.getUserName(), user.getUsername() + user.getDomain());
     }
 
     @Test(priority = 2)
     public void createDraft() {
-        steps.writeMessage(SUBJECT, TARGET, MESSAGE);
+        steps.writeMessage(message);
         steps.saveMessageAsDraft();
         steps.openDraftsFolder();
-        verification.verifyTrue(steps.isMessageInDraftFolder(SUBJECT, TARGET, MESSAGE));
+        verification.verifyTrue(steps.isMessageInDraftFolder(message));
     }
 
     @Test(priority = 3)
-    public void sendDraft() {
-        steps.openDraft();
-        steps.sendDraft();
-        steps.openDraftsFolder();
-        verification.verifyTrue(steps.isMessageNotInDrafts(SUBJECT, TARGET, MESSAGE));
+    public void addDraftToBasket() {
+        steps.moveMessageIntoBasket();
+        Assert.assertTrue(steps.isMessageNotInDrafts(message));
     }
 
     @Test(priority = 4)
-    public void checkSendedFolder() {
-        steps.openSentsFolder();
-        verification.verifyTrue(steps.isMessageInSentFolder(SUBJECT, TARGET, MESSAGE));
+    public void checkBasket() {
+        steps.openBasket();
+        Assert.assertTrue(steps.isMessageInBasket(message));
     }
 
     @Test(priority = 5)
@@ -61,6 +64,4 @@ public class ScenarioFirstTest {
     public void stopBrowser() {
         steps.closeDriver();
     }
-
-
 }
